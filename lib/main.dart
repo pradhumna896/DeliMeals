@@ -62,9 +62,15 @@ class _MyAppState extends State<MyApp> {
     } else {
       setState(() {
         _favoriteMeals
-            .add(DUMMY_MEALS.firstWhere((element) => element.id == mealId));
+            .add(DUMMY_MEALS
+            .firstWhere(
+              (element) => element.id == mealId));
       });
     }
+  }
+
+  bool _isMealFavorite(String id){
+    return _favoriteMeals.any((element) => element.id==id);
   }
 
   @override
@@ -85,7 +91,7 @@ class _MyAppState extends State<MyApp> {
         '/': (context) => TabsScreen(_favoriteMeals),
         CategoryMealsScreen.routeName: (context) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (context) => MealDetailScreen(),
+        MealDetailScreen.routeName: (context) => MealDetailScreen(_toggleFavorite,_isMealFavorite),
         FiltersScreen.routeName: (context) =>
             FiltersScreen(_setFilters, _filters)
       },
